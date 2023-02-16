@@ -38,9 +38,3 @@ lnk update
 lnk help
     Show this text.
 ```
-
-
-add repo name to readme
-insert sed undefined label
-git master main
-lnk find falls to usage
