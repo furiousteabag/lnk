@@ -24,7 +24,7 @@ Usage:
         Insert a new link.
     $PROGRAM find [--no-browser,-n]
         Launches FZF to search for a link and open it in the browser.
-        If --no-browser is specified, the link is copied to the clipboard instead.
+        If --no-browser is specified, the link is just copied to the clipboard.
     $PROGRAM git git-command-args...
         Execute a git command specified by git-command-args, e.g. '$PROGRAM git push'
     $PROGRAM update
