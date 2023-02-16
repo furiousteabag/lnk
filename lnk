@@ -15,6 +15,12 @@ fi
 STORAGE="${PREFIX}/links.tsv"
 
 
+if [ "$(uname)" == "Darwin" ]; then
+    GETOPT="$({ test -x /usr/local/opt/gnu-getopt/bin/getopt && echo /usr/local/opt/gnu-getopt; } || brew --prefix gnu-getopt 2>/dev/null || { command -v port &>/dev/null && echo /opt/local; } || echo /usr/local)/bin/getopt"
+else
+    GETOPT="$(command -v getopt)"
+fi
+
 cmd_usage() {
     cat <<-_EOF
 Usage:
@@ -101,7 +107,7 @@ cmd_find() {
     if_initialized
 
     local opts no_browser=0
-    opts="$(getopt -o n -l no-browser -n "$PROGRAM" -- "$@")"
+    opts="$($GETOPT -o n -l no-browser -n "$PROGRAM" -- "$@")"
     local err=$?
 
     eval set -- "$opts"
