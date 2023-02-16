@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 #
 # Script to manage links.
+# You need github.com/junegunn/fzf to use this script.
 #
 # To list available commands, type 'lnk help'.
-# You can personalize directory where links are
-# stored by setting LINK_STORE_DIR variable.
 
-PREFIX="${LINK_STORE_DIR:-$HOME/.link-store}"
+
+if [ -z "$XDG_DATA_HOME" ]; then
+    PREFIX="$HOME/.link-store"
+else
+    PREFIX="$XDG_DATA_HOME/link-store"
+fi
+
 STORAGE="${PREFIX}/links.tsv"
+
 
 cmd_usage() {
     cat <<-_EOF
@@ -113,6 +119,7 @@ cmd_find() {
     echo "Copied link to clipboard: $link"
 }
 
+
 PROGRAM="${0##*/}"
 COMMAND="$1"
 
@@ -124,4 +131,5 @@ case "$1" in
     git)         shift; cmd_git "$@" ;;
     *)                  cmd_usage "$@" ;;
 esac
+
 exit 0
