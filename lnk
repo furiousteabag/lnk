@@ -20,11 +20,11 @@ cmd_usage() {
 Usage:
     $PROGRAM init
         Initialize the link store.
+    $PROGRAM insert link-address
+        Insert a new link.
     $PROGRAM find [--no-browser,-n]
         Launches FZF to search for a link and open it in the browser.
         If --no-browser is specified, the link is copied to the clipboard instead.
-    $PROGRAM insert link-address
-        Insert a new link.
     $PROGRAM git git-command-args...
         Execute a git command specified by git-command-args, e.g. '$PROGRAM git push'
     $PROGRAM update
@@ -130,6 +130,7 @@ cmd_find() {
 }
 
 cmd_update() {
+    [ ! -z "$1" ] && die "Usage: $PROGRAM $COMMAND"
     set -o errexit
 
     echo "Performing self-update..."
@@ -146,11 +147,11 @@ COMMAND="$1"
 
 case "$1" in
     init)        shift; cmd_init "$@" ;;
-    help|--help) shift; cmd_usage "$@" ;;
     insert|add)  shift; cmd_insert "$@" ;;
     find|search) shift; cmd_find "$@" ;;
     git)         shift; cmd_git "$@" ;;
     update)      shift; cmd_update "$@" ;;
+    help|--help) shift; cmd_usage "$@" ;;
     *)                  cmd_usage "$@" ;;
 esac
 
