@@ -99,7 +99,7 @@ cmd_find() {
 
 	local opts no_browser=0
 	opts="$(getopt -o n -l no-browser -n "$PROGRAM" -- "$@")"
-    [ $? -ne 0 ] && die "Usage: $PROGRAM $COMMAND [--no-browser,-n]"
+    local err=$?
 
 	eval set -- "$opts"
 	while true; do case $1 in
@@ -107,7 +107,7 @@ cmd_find() {
 		--) shift; break ;;
 	esac done
 
-    [ ! -z "$1" ] && die "Usage: $PROGRAM $COMMAND [--no-browser,-n]"
+    [[ ! -z "$1" || $err -ne 0 ]] && die "Usage: $PROGRAM $COMMAND [--no-browser,-n]"
 
     local link=$(
         cat "$STORAGE" |
