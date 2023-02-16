@@ -117,7 +117,7 @@ cmd_find() {
     local link=$(
         cat "$STORAGE" |
         column -s $'\t' -t |
-        fzf --height 50% --reverse --border rounded --header-lines 1 |
+        fzf --reverse --border rounded --header-lines 1 |
         rev | cut -d' ' -f1 | rev
     )
     [ -z "$link" ] && die "No link selected"
