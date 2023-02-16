@@ -14,7 +14,6 @@ fi
 
 STORAGE="${PREFIX}/links.tsv"
 
-
 if [ "$(uname)" == "Darwin" ]; then
     GETOPT="$({ test -x /usr/local/opt/gnu-getopt/bin/getopt && echo /usr/local/opt/gnu-getopt; } || brew --prefix gnu-getopt 2>/dev/null || { command -v port &>/dev/null && echo /opt/local; } || echo /usr/local)/bin/getopt"
 else
@@ -64,7 +63,7 @@ cmd_init() {
         echo "Git repository already initialized in $PREFIX"
     else
         git -C "$PREFIX" init
-        echo -e "link\ttags\tdate" > "$STORAGE"
+        echo -e "date\ttags\tlink" > "$STORAGE"
         git_add_commit "Initialize link store"
     fi
 
@@ -94,10 +93,7 @@ cmd_insert() {
     local date=$(date +%Y-%m-%d\ %H:%M)
     read -p "Tags (split by space): " tags && tags=$(echo "$tags" | tr -s ' ')
 
-    # sed "1 a $link\t$tags\t$date" "$STORAGE" > "$STORAGE".tmp &&
-    #     mv "$STORAGE".tmp "$STORAGE"
-
-    cat <(head -n 1 "$STORAGE") <(echo -e "$link\t$tags\t$date") <(tail -n +2 "$STORAGE") > "$STORAGE".tmp &&
+    cat <(head -n 1 "$STORAGE") <(echo -e "$date\t$tags\t$link") <(tail -n +2 "$STORAGE") > "$STORAGE".tmp &&
         mv "$STORAGE".tmp "$STORAGE"
 
     git_add_commit "Add link $link"
@@ -120,7 +116,7 @@ cmd_find() {
 
     local link=$(
         cat "$STORAGE" |
-        column -s $'\t' --table-order 3,2,1 -t |
+        column -s $'\t' -t |
         fzf --height 50% --reverse --border rounded --header-lines 1 |
         rev | cut -d' ' -f1 | rev
     )
