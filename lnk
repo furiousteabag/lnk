@@ -135,7 +135,7 @@ cmd_update() {
     echo "Performing self-update..."
     wget --no-cache --quiet --output-document=$HOME/lnk.tmp "https://raw.githubusercontent.com/SmirnovAlexander/lnk/master/lnk"
     chmod $(stat -c '%a' $0) $HOME/lnk.tmp
-    git diff --quiet $0 $HOME/lnk.tmp
+    git diff $0 $HOME/lnk.tmp && exit 0
     sudo mv $HOME/lnk.tmp $0
     echo "Done!"
 }
