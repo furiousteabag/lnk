@@ -132,12 +132,9 @@ cmd_find() {
 cmd_update() {
     [ ! -z "$1" ] && die "Usage: $PROGRAM $COMMAND"
 
-    echo "Performing self-update..."
     wget --no-cache --quiet --output-document=$HOME/lnk.tmp "https://raw.githubusercontent.com/SmirnovAlexander/lnk/master/lnk"
     chmod $(stat -c '%a' $0) $HOME/lnk.tmp
-    git diff $0 $HOME/lnk.tmp
-    sudo mv $HOME/lnk.tmp $0
-    echo "Done!"
+    git diff $0 $HOME/lnk.tmp && echo "No changes!" || sudo mv $HOME/lnk.tmp $0 && echo "Updated!"
 }
 
 
