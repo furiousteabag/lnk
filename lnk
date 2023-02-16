@@ -63,7 +63,15 @@ cmd_init() {
         echo "FZF should be installed to use this script. Try 'brew install fzf' or 'apt install fzf'."
     fi
 
-    echo "If you want to connect a remote repository, run '$PROGRAM git remote add origin remote-repo-url'."
+    if ! git -C "$PREFIX" ls-remote --exit-code; then
+        cat <<-_EOF
+If you want to connect a remote repository:
+    1. Create new empty repo: https://github.com/new
+    2. $PROGRAM git remote add origin remote-repo-url
+    3. lnk git push --set-upstream origin master
+    4. When you want to push all chages to remote repo, run: lnk git push
+_EOF
+    fi
 }
 
 cmd_git() {
