@@ -140,7 +140,7 @@ cmd_update() {
 
     wget --no-cache --quiet --output-document=$tmpfile $source_url
     chmod +x $tmpfile
-    git diff $0 $tmpfile && rm $tmpfile && echo "No changes!" && || {sudo mv $tmpfile $0 && echo "Updated!"}
+    git diff $0 $tmpfile && rm $tmpfile && echo "No changes!" || {sudo mv $tmpfile $0 && echo "Updated!"}
 }
 
 
