@@ -63,7 +63,7 @@ cmd_init() {
         echo "FZF should be installed to use this script. Try 'brew install fzf' or 'apt install fzf'."
     fi
 
-    if ! git -C "$PREFIX" ls-remote --exit-code; then
+    if ! git -C "$PREFIX" ls-remote --exit-code > /dev/null 2>&1; then
         cat <<-_EOF
 If you want to connect a remote repository:
     1. Create new empty repo: https://github.com/new
