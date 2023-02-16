@@ -88,7 +88,10 @@ cmd_insert() {
     local date=$(date +%Y-%m-%d\ %H:%M)
     read -p "Tags (split by space): " tags && tags=$(echo "$tags" | tr -s ' ')
 
-    sed "1 a $link\t$tags\t$date" "$STORAGE" > "$STORAGE".tmp &&
+    # sed "1 a $link\t$tags\t$date" "$STORAGE" > "$STORAGE".tmp &&
+    #     mv "$STORAGE".tmp "$STORAGE"
+
+    cat <(head -n 1 "$STORAGE") <(echo -e "$link\t$tags\t$date") <(tail -n +2 "$STORAGE") > "$STORAGE".tmp &&
         mv "$STORAGE".tmp "$STORAGE"
 
     git_add_commit "Add link $link"
