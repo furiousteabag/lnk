@@ -31,7 +31,7 @@ Usage:
         Update the script itself from source.
     $PROGRAM help
         Show this text.
-    _EOF
+_EOF
 }
 
 die() {
