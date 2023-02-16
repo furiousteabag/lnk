@@ -60,18 +60,19 @@ cmd_init() {
         git -C "$PREFIX" init
         echo -e "link\ttags\tdate" > "$STORAGE"
         git_add_commit "Initialize link store"
-        echo "FZF should be installed to use this script. Try 'brew install fzf' or 'apt install fzf'."
     fi
 
-    if ! git -C "$PREFIX" ls-remote --exit-code > /dev/null 2>&1; then
+    command -v fzf > /dev/null 2>&1 || 
+        echo "FZF should be installed to use this script. Try 'brew install fzf' or 'apt install fzf'."
+
+    git -C "$PREFIX" ls-remote --exit-code > /dev/null 2>&1 ||
         cat <<-_EOF
-If you want to connect a remote repository:
-    1. Create new empty repo: https://github.com/new
-    2. $PROGRAM git remote add origin remote-repo-url
-    3. lnk git push --set-upstream origin master
-    4. When you want to push all chages to remote repo, run: lnk git push
+If you want to backup your local changes with remote repo:
+    1. Create new empty repo 'link-store': https://github.com/new
+    2. 'lnk git remote add origin <remote-repo-url>'
+    3. 'lnk git push --set-upstream origin $(lnk git branch --show-current)'
+    4. When you want to push all changes to remote repo, run: 'lnk git push'
 _EOF
-    fi
 }
 
 cmd_git() {
