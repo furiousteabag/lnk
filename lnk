@@ -127,7 +127,7 @@ cmd_update() {
     echo "Performing self-update..."
     wget --no-cache --quiet --output-document=$HOME/$0.tmp "https://raw.githubusercontent.com/SmirnovAlexander/lnk/master/lnk"
     chmod $(stat -c '%a' $0) $HOME/$0.tmp
-    mv $HOME/$0.tmp $0
+    sudo mv $HOME/$0.tmp $0
     echo "Done!"
 }
 
