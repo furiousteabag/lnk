@@ -90,6 +90,7 @@ cmd_insert() {
     [ -z "$1" ] || [ ! -z "$2" ] && die "Usage: $PROGRAM $COMMAND link-address"
 
     local link="$1"
+    echo "Adding link: $link"
     local date=$(date +%Y-%m-%d\ %H:%M)
     read -p "Tags (split by space): " tags && tags=$(echo "$tags" | tr -s ' ')
 
