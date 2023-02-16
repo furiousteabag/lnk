@@ -2,10 +2,13 @@
 
 This CLI tool allows to store & retrieve links with tags utilizing git repo storage.
 
+https://user-images.githubusercontent.com/32129186/219489278-324db874-930c-43a8-abad-14322406c8f0.mov
+
 
 ## Install
 
-[FZF](https://github.com/junegunn/fzf) should be installed to use this script. Try `brew install fzf` or `apt install fzf`.
+[FZF](https://github.com/junegunn/fzf) should be installed to use this script. 
+`{pacman -S / brew install / apt install} fzf` will work.
 
 Download shell script and place it somewhere in your `PATH`, like here:
 ```bash
@@ -19,6 +22,15 @@ If you want to backup your local changes with remote repo:
 2. `lnk git remote add origin remote-repo-url`
 3. `lnk git push --set-upstream origin $(lnk git branch --show-current)`
 4. When you want to push all changes to remote repo, run: `lnk git push`
+
+### i3 usage
+
+To seamlessly use it in i3 add to your config (set your own bindings):
+```
+for_window [title="^lnk$"] floating enable, resize set 80 ppt 80 ppt, move position center
+bindsym $mod+Shift+u  exec --no-startup-id $TERMINAL -e lnk insert $(xclip -selection clipboard -out)
+bindsym $mod+Shift+y  exec --no-startup-id $TERMINAL -e lnk find
+```
 
 
 ## Usage
