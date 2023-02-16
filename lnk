@@ -31,7 +31,7 @@ Usage:
         Update the script itself from source.
     $PROGRAM help
         Show this text.
-	_EOF
+    _EOF
 }
 
 die() {
@@ -100,15 +100,15 @@ cmd_insert() {
 cmd_find() {
     if_initialized
 
-	local opts no_browser=0
-	opts="$(getopt -o n -l no-browser -n "$PROGRAM" -- "$@")"
+    local opts no_browser=0
+    opts="$(getopt -o n -l no-browser -n "$PROGRAM" -- "$@")"
     local err=$?
 
-	eval set -- "$opts"
-	while true; do case $1 in
-		-n|--no-browser) no_browser=1; shift ;;
-		--) shift; break ;;
-	esac done
+    eval set -- "$opts"
+    while true; do case $1 in
+        -n|--no-browser) no_browser=1; shift ;;
+        --) shift; break ;;
+    esac done
 
     [[ ! -z "$1" || $err -ne 0 ]] && die "Usage: $PROGRAM $COMMAND [--no-browser,-n]"
 
