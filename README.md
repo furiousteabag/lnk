@@ -43,6 +43,8 @@ lnk insert link-address
 lnk find [--no-browser,-n]
     Launches FZF to search for a link and open it in the browser.
     If --no-browser is specified, the link is just copied to the clipboard.
+lnk rm
+    Launches FZF to search for a link and remove it.
 lnk git git-command-args...
     Execute a git command specified by git-command-args, e.g. 'lnk git push'
 lnk update
