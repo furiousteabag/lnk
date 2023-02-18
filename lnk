@@ -30,6 +30,8 @@ Usage:
     $PROGRAM find [--no-browser,-n]
         Launches FZF to search for a link and open it in the browser.
         If --no-browser is specified, the link is just copied to the clipboard.
+    $PROGRAM edit
+        Launches FZF to search for a link then prompts you to edit tags.
     $PROGRAM rm
         Launches FZF to search for a link and remove it.
     $PROGRAM git git-command-args...
@@ -145,6 +147,31 @@ cmd_find() {
     echo "Copied link to clipboard: $link"
 }
 
+cmd_edit() {
+    if_initialized
+
+    [ ! -z "$1" ] && die "Usage: $PROGRAM $COMMAND"
+
+    local link=$(fzf_select)
+    [ -z "$link" ] && die "No link selected"
+
+    local tags=$(grep "$link$" "$STORAGE" | cut -d$'\t' -f2)
+    local date=$(grep "$link$" "$STORAGE" | cut -d$'\t' -f1)
+    local line_num=$(grep -n "$link$" "$STORAGE" | cut -d: -f1)
+
+    read -p "Tags (split by space): " -e -i "$tags" new_tags &&
+        new_tags=$(echo "$new_tags" | tr -s ' ')
+
+    local new_line=$(grep "$link$" "$STORAGE" | sed "s/$tags/$new_tags/")
+
+    cat <(head -n $((line_num-1)) "$STORAGE") \
+        <(echo "$new_line") \
+        <(tail -n +$((line_num+1)) "$STORAGE") > "$STORAGE".tmp &&
+        mv "$STORAGE".tmp "$STORAGE"
+
+    git_add_commit "Edit tags for link $link"
+}
+
 cmd_delete() {
     if_initialized
     [ ! -z "$1" ] && die "Usage: $PROGRAM $COMMAND"
@@ -152,7 +179,7 @@ cmd_delete() {
     local link=$(fzf_select)
     [ -z "$link" ] && die "No link selected"
 
-    grep -v "$link" "$STORAGE" > "$STORAGE".tmp &&
+    grep -v "$link$" "$STORAGE" > "$STORAGE".tmp &&
         mv "$STORAGE".tmp "$STORAGE"
 
     git_add_commit "Remove link $link"
@@ -178,6 +205,7 @@ case "$1" in
     init)             shift; cmd_init "$@" ;;
     insert|add)       shift; cmd_insert "$@" ;;
     find|search)      shift; cmd_find "$@" ;;
+    edit)             shift; cmd_edit "$@" ;;
     delete|rm|remove) shift; cmd_delete "$@" ;;
     git)              shift; cmd_git "$@" ;;
     update)           shift; cmd_update "$@" ;;
