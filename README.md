@@ -30,13 +30,13 @@ For each of scripts do:
 - open Automator
 - create a new Application
 - add an action "Run AppleScript"
-- save it
+- save it with easy-to-retrieve names, e.g. **insert**
 
-Insert (will automatically paste the link from the buffer):
+**lnk insert** (will automatically paste the link from the buffer)
 ```
 ```
 
-Find:
+**lnk find**
 ```
 ```
 
@@ -69,6 +69,7 @@ lnk rm
     Launches FZF to search for a link and remove it.
 lnk git git-command-args...
     Execute a git command specified by git-command-args, e.g. 'lnk git push'
+    or 'lnk git diff HEAD^ HEAD' to see changes from last commit.
 lnk update
     Update the script itself from source.
 lnk help
@@ -77,10 +78,7 @@ lnk help
 
 ## ToDo
 
-- if inserted link is already present -> merge tags
-- `lnk edit` -> select link and prompt with existing tags with ability to add new
+- fix 2 terminals on mac
+    * https://apple.stackexchange.com/questions/224925/script-opens-two-terminal-windows
 - lnk -> choose what to do, read 1 symbol and make that (add, rm, edit)
 - add snippets support with preview
-
-
-https://apple.stackexchange.com/questions/224925/script-opens-two-terminal-windows
