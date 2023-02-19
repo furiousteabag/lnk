@@ -7,12 +7,14 @@ https://user-images.githubusercontent.com/32129186/219489278-324db874-930c-43a8-
 
 ## Install
 
-[FZF](https://github.com/junegunn/fzf) should be installed to use this script. 
-`{pacman -S / brew install / apt install} fzf` will work.
+- [FZF](https://github.com/junegunn/fzf) should be installed to use this script. 
+    * `{pacman -S / brew install / apt install} fzf`
+- `bash` version should be `>= bash 4.0-alpha`. On linux it is usully true, on OS X you should update.
+    * `brew upgrade ; brew install bash`
 
 Download shell script and place it somewhere in your `PATH`, like here:
 ```bash
-wget --no-cache --quiet "https://raw.githubusercontent.com/SmirnovAlexander/lnk/master/lnk" && chmod +x lnk && sudo mv lnk /usr/local/bin
+wget --no-cache -q "https://raw.githubusercontent.com/SmirnovAlexander/lnk/master/lnk" && chmod +x lnk && sudo mv lnk /usr/local/bin
 ```
 
 Run `lnk init`
@@ -69,7 +71,8 @@ lnk rm
     Launches FZF to search for a link and remove it.
 lnk git git-command-args...
     Execute a git command specified by git-command-args, e.g. 'lnk git push'
-    or 'lnk git diff HEAD^ HEAD' to see changes from last commit.
+    or 'lnk git diff HEAD^ HEAD' to see changes from last commit or
+    'lnk git reset --hard HEAD^' to undo last commit.
 lnk update
     Update the script itself from source.
 lnk help
