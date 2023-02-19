@@ -38,7 +38,7 @@ For each of scripts do:
 ```
 tell application "Terminal"
     launch
-    do script "exec lnk insert"
+    do script "exec lnk insert $(pbpaste)"
     activate
 end tell
 ```
@@ -91,7 +91,5 @@ lnk help
 
 ## ToDo
 
-- fix 2 terminals on mac
-    * https://apple.stackexchange.com/questions/224925/script-opens-two-terminal-windows
 - lnk -> choose what to do, read 1 symbol and make that (add, rm, edit)
 - add snippets support with preview
