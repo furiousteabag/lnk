@@ -36,10 +36,20 @@ For each of scripts do:
 
 **lnk insert** (will automatically paste the link from the buffer)
 ```
+tell application "Terminal"
+    launch
+    do script "exec lnk insert"
+    activate
+end tell
 ```
 
 **lnk find**
 ```
+tell application "Terminal"
+    launch
+    do script "exec lnk find"
+    activate
+end tell
 ```
 
 Now you can execute program just by searching in apps by the name under which you saved the scripts.
