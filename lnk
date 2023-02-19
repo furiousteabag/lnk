@@ -63,6 +63,7 @@ git_add_commit() {
 fzf_select() {
     local link=$(
         cat "$STORAGE" |
+        sed "s/[^\t]*\t//" |
         column -s $'\t' -t |
         fzf --reverse --border rounded --header-lines 1 |
         rev | cut -d' ' -f1 | rev
